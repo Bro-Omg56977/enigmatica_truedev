@@ -85,7 +85,7 @@
                       },
                       "argument2": {
                         "type": "minecraft:add",
-                        "argument1": 23.4375,
+                        "argument1": 23.2105,
                         "argument2": "minecraft:end/base_3d_noise"
                       }
                     }
@@ -106,10 +106,113 @@
     "type": "minecraft:sequence",
     "sequence": [
       {
-        "type": "minecraft:block",
-        "result_state": {
-          "Name": "minecraft:stone"
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:biome",
+          "biome_is": [
+            "bro:enigmatica/void"
+          ]
+        },
+        "then_run": {
+          "type": "minecraft:block",
+          "result_state": {
+            "Name": "minecraft:void_air"
+          }
         }
+      },
+      {
+        "type": "minecraft:sequence",
+        "sequence": [
+          {
+            "type": "minecraft:condition",
+            "if_true": {
+              "type": "minecraft:biome",
+              "biome_is": [
+                "bro:enigmatica/fracture"
+              ]
+            },
+            "then_run": {
+              "type": "minecraft:block",
+              "result_state": {
+                "Name": "minecraft:air"
+              }
+            }
+          },
+          {
+            "type": "minecraft:condition",
+            "if_true": {
+              "type": "minecraft:biome",
+              "biome_is": [
+                "bro:enigmatica/glacial_rise",
+                "bro:enigmatica/basalt_bluff",
+                "bro:enigmatica/mechanical_exposee",
+                "bro:enigmatica/unfortunate_pileup"
+              ]
+            },
+            "then_run": {
+              "type": "minecraft:sequence",
+              "sequence": [
+                {
+                  "type": "minecraft:condition",
+                  "if_true": {
+                    "type": "minecraft:stone_depth",
+                    "offset": 0,
+                    "surface_type": "floor",
+                    "add_surface_depth": false,
+                    "secondary_depth_range": 0
+                  },
+                  "then_run": {
+                    "type": "minecraft:block",
+                    "result_state": {
+                      "Name": "minecraft:grass_block",
+                      "Properties": {
+                        "snowy": "false"
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:condition",
+                  "if_true": {
+                    "type": "minecraft:stone_depth",
+                    "offset": 0,
+                    "surface_type": "floor",
+                    "add_surface_depth": true,
+                    "secondary_depth_range": 0
+                  },
+                  "then_run": {
+                    "type": "minecraft:block",
+                    "result_state": {
+                      "Name": "minecraft:dirt"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "minecraft:condition",
+            "if_true": {
+              "type": "minecraft:vertical_gradient",
+              "random_name": "bro:enigslate",
+              "true_at_and_below": {
+                "absolute": 0
+              },
+              "false_at_and_above": {
+                "absolute": 0
+              }
+            },
+            "then_run": {
+              "type": "minecraft:block",
+              "result_state": {
+                "Name": "minecraft:deepslate",
+                "Properties": {
+                  "axis": "y"
+                }
+              }
+            }
+          }
+        ]
       }
     ]
   }
